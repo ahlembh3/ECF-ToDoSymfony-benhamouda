@@ -87,17 +87,19 @@
         "symfony/polyfill-php81": "*"
     },
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
+    "auto-scripts": {
+        "cache:clear": "symfony-cmd",
+        "assets:install %PUBLIC_DIR%": "symfony-cmd"
     },
+    "post-install-cmd": [
+        "@auto-scripts"
+    ],
+    "post-update-cmd": [
+        "@auto-scripts"
+    ],
+    "test:integration": "set SYMFONY_DEPRECATIONS_HELPER=max[total]=99999 && vendor\\bin\\phpunit tests\\Integration\\TaskServiceIntegrationTest.php --coverage-html coverage-integration",
+    "test:all": "vendor\\bin\\phpunit --coverage-html coverage"
+},
     "conflict": {
         "symfony/symfony": "*"
     },

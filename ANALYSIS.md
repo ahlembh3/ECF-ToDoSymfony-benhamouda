@@ -70,11 +70,13 @@ Moins critiques que les services métier, mais importants pour la robustesse.
 ## Difficultés identifiées
 - Listez les défis techniques rencontrés
 - Proposez des solutions
-Défi technique	                --------|Solution proposée
+
+Défi technique	                        |Solution proposée
 ----------------------------------------|------------------------------------
+
 Absence de tests initiaux		        |Initialiser PHPUnit (composer require --dev phpunit/phpunit)
 
 Accès BDD requis pour certains tests	|utiliser une BDD dédiée aux tests
 
-Manque de fixtures de données		    |Utiliser DoctrineFixturesBundle ou instancier manuellement les entités
+Manque de fixtures de données		    |Utiliser DoctrineFixturesBundle 
 
