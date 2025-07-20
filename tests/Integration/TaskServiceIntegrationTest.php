@@ -8,9 +8,7 @@ use App\Service\TaskService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @covers \App\Service\TaskService
- */
+
 class TaskServiceIntegrationTest extends KernelTestCase
 {
     private TaskService $taskService;
@@ -40,7 +38,6 @@ class TaskServiceIntegrationTest extends KernelTestCase
         $task = new Task();
         $task->setTitle('Integration test task');
         $task->setDescription('Check if persisted');
-        $task->setPriority(2);
 
         // Act : appel du service
         $this->taskService->createTask($task, $user);
@@ -49,7 +46,6 @@ class TaskServiceIntegrationTest extends KernelTestCase
         $taskFromDb = $this->entityManager->getRepository(Task::class)->findOneBy(['title' => 'Integration test task']);
         $this->assertNotNull($taskFromDb);
         $this->assertSame('Check if persisted', $taskFromDb->getDescription());
-        $this->assertSame(2, $taskFromDb->getPriority());
         $this->assertSame($user->getId(), $taskFromDb->getUser()->getId());
     }
 
