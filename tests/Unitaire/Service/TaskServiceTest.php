@@ -80,6 +80,46 @@ class TaskServiceTest extends TestCase
 
         $this->assertSame($task, $this->service->getTaskById(10));
     }
+//couverture limits
+    public function testGetTaskByIdReturnsNullIfNotFound(): void
+    {
+        $this->repoStub
+            ->method('find')
+            ->with(999)
+            ->willReturn(null);
+
+        $this->assertNull($this->service->getTaskById(999));
+    }
+
+    public function testGetTasksForUserReturnsEmptyArray(): void
+    {
+        $user = new User();
+
+        $this->repoStub
+            ->method('findBy')
+            ->with(['user' => $user])
+            ->willReturn([]);
+
+        $this->assertSame([], $this->service->getTasksForUser($user));
+    }
+//couverture erreur
+    public function testCreateTaskThrowsOnFlushFailure(): void
+    {
+        $taskMock = $this->createMock(Task::class);
+        $userMock = $this->createMock(User::class);
+
+        $taskMock->expects($this->once())->method('setUser')->with($userMock);
+        $this->emMock->expects($this->once())->method('persist')->with($taskMock);
+        $this->emMock
+            ->method('flush')
+            ->will($this->throwException(new \Exception('Erreur Doctrine')));
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Erreur Doctrine');
+
+        $this->service->createTask($taskMock, $userMock);
+    }
+
 
     protected function tearDown(): void
     {

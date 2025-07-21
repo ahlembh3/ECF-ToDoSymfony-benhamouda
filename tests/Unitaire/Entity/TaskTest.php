@@ -24,6 +24,13 @@ class TaskTest extends TestCase
         $this->task->setTitle('Faire les courses');
         $this->assertSame('Faire les courses', $this->task->getTitle());
     }
+//couveture limite
+    public function testCanHandleEmptyTitle(): void
+    {
+        $this->task->setTitle('');
+        $this->assertSame('', $this->task->getTitle());
+    }
+
 
     public function testCanSetAndGetDescription(): void
     {
